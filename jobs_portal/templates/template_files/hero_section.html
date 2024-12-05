@@ -1,0 +1,16 @@
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('/static/website/images/hero_1.jpg');" id="home-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <h1 class="text-white font-weight-bold">{% block header %}Default Header{% endblock header %}</h1>
+        <div class="custom-breadcrumbs">
+          <a href="{% block href1_url %}#{% endblock href1_url %}">{% block href1 %}Default Home{% endblock href1 %}</a>
+          <span class="mx-2 slash">/</span>
+          <a href="{% block href2_url %}#{% endblock href2_url %}">{% block href2 %}Default Job{% endblock href2 %}</a>
+          <span class="mx-2 slash">/</span>
+          <span class="text-white"><strong>{% block span %}Default Text{% endblock span %}</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

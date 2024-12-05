@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{%static 'website/css/animate.min.cs' %}s">
     <link rel="stylesheet" href="{%static 'website/css/quill.snow.cs' %}s">
     
-
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{%static 'website/css/style.css' %}">    
   </head>
@@ -28,7 +27,6 @@
     </div>
   </div> -->
     
-
 <div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
@@ -63,18 +61,20 @@
         <div class="row">
           <div class="col-lg-6 mb-5">
             <h2 class="mb-4">Sign Up To JobBoard</h2>
-            <form action="#" class="p-4 border rounded">
+            <!-- <form action="#" class="p-4 border rounded"> -->
+              <form action="{% url 'login' %}" method="POST" class="p-4 border rounded">
+                {% csrf_token %}
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="fname">Email</label>
-                  <input type="text" id="fname" class="form-control" placeholder="Email address">
+                  <input type="text" id="fname"  class="form-control" placeholder="Email address">
                 </div>
               </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="fname">Password</label>
-                  <input type="password" id="fname" class="form-control" placeholder="Password">
+                  <input type="password" id="fname"  class="form-control" placeholder="Password">
                 </div>
               </div>
               <div class="row form-group mb-4">
@@ -89,17 +89,19 @@
                   <input type="submit" value="Sign Up" class="btn px-4 btn-primary text-white">
                 </div>
               </div>
-
             </form>
           </div>
+          {% csrf_token %} 
           <div class="col-lg-6">
             <h2 class="mb-4">Log In To JobBoard</h2>
-            <form action="#" class="p-4 border rounded">
-
+      
+            <!-- <form action="#" class="p-4 border rounded"> -->
+              <form action="{% url 'login' %}" method="POST" class="p-4 border rounded">
+                {% csrf_token %}
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="text-black" for="fname">Email</label>
-                  <input type="text" id="fname" class="form-control" placeholder="Email address">
+                  <input type="text" id="fname"  class="form-control" placeholder="Email address">
                 </div>
               </div>
               <div class="row form-group mb-4">
@@ -120,24 +122,22 @@
         </div>
       </div>
     </section>
-    
     {% include "template_files/footer.html" %}
-
   </div>
 
     <!-- SCRIPTS -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/stickyfill.min.js"></script>
-    <script src="js/jquery.fancybox.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/quill.min.js"></script>
-    <script src="js/bootstrap-select.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="/static/website/js/jquery.min.js"></script>
+    <script src="/static/website/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/website/js/isotope.pkgd.min.js"></script>
+    <script src="/static/website/js/stickyfill.min.js"></script>
+    <script src="/static/website/js/jquery.fancybox.min.js"></script>
+    <script src="/static/website/js/jquery.easing.1.3.js"></script>
+    <script src="/static/website/js/jquery.waypoints.min.js"></script>
+    <script src="/static/website/js/jquery.animateNumber.min.js"></script>
+    <script src="/static/website/js/owl.carousel.min.js"></script>
+    <script src="/static/website/js/quill.min.js"></script>
+    <script src="/static/website/js/bootstrap-select.min.js"></script>
+    <script src="/static/website/js/custom.js"></script>
 
   </body>
 </html>

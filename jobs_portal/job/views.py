@@ -5,32 +5,34 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
+from .forms import JobForm
 
 def index(request): 
     return render(request,'index.html',{})
 
-def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('index')
-    else:
-        if request.method == "POST":
-            email = request.POST.get('email')
-            password = request.POST.get('password')
+
+# def user_login(request):
+#     if request.user.is_authenticated:
+#         return redirect('index')
+#     else:
+#         if request.method == "POST":
+#             email = request.POST.get('email')
+#             password = request.POST.get('password')
             
-            if not User.objects.filter(username=email).exists():
-                messages.error(request, 'Invalid email')
-                return redirect('login')
+#             if not User.objects.filter(username=email).exists():
+#                 messages.error(request, 'Invalid email')
+#                 return redirect('login')
             
-            user = authenticate(username=email, password=password)
+#             user = authenticate(username=email, password=password)
             
-            if user is None:
-                messages.error(request, "Invalid Password")
-                return redirect('login')
-            else:
-                login(request, user)
-                return redirect('index')
+#             if user is None:
+#                 messages.error(request, "Invalid Password")
+#                 return redirect('login')
+#             else:
+#                 login(request, user)
+#                 return redirect('index')
     
-    return render(request, 'login.html')
+#     return render(request, 'login.html')
 
 def signUp(request):
     if request.method == "POST":
@@ -70,8 +72,8 @@ def postJob(request):
 def blog(request): 
     return render(request,'blog.html',{})
 
-# def login(request): 
-#     return render(request,'login.html',{})
+def login(request): 
+    return render(request,'login.html',{})
 
 def blogSingle(request): 
     return render(request,'blog-single.html',{})
@@ -98,5 +100,31 @@ def portfolioSingle(request):
     return render(request,'portfolio-single.html',{})
 
 
+
+# def company_list(request):
+#     search_query = request.GET.get('search', '') 
+#     region_query = request.GET.get('region', '')
+#     companies = Company.objects.all()
+
+#     if search_query:
+#         companies = companies.filter(company_name__icontains=search_query)
+
+#     if region_query:
+#         companies = companies.filter(location__icontains=region_query)
+
+#     return render(request, 'job-single.html', {'companies': companies})
+
+def create_job_view(request):
+    if request.method == 'POST':
+        form = JobForm(request.POST, request.FILES)  # Add request.FILES to handle file uploads
+        if form.is_valid():
+            form.save()
+            print("Job successfully created.")
+            return redirect('job-single')
+        else:
+            print(form.errors) 
+    else:
+        form = JobForm()
+    return render(request, 'post-job.html', {'form': form})
 
 

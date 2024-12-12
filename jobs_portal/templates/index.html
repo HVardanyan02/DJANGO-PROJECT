@@ -62,13 +62,14 @@
                   Cupiditate est, consequuntur perferendis.
                 </p>
               </div>
-              <form method="post" class="search-jobs-form">
+              <form method="GET" class="search-jobs-form">
                 <div class="row mb-5">
                   <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
                     <input
                       type="text"
                       class="form-control form-control-lg"
                       placeholder="Job title, Company..."
+                      value="{{ request.GET.search }}"
                     />
                   </div>
                   <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
@@ -79,7 +80,16 @@
                       data-live-search="true"
                       title="Select Region"
                     >
-                      <option>Anywhere</option>
+                    <option value="">Anywhere</option>
+                    <option value="San Francisco" {% if request.GET.region == "San Francisco" %}selected{% endif %}>San Francisco</option>
+                    <option value="Palo Alto" {% if request.GET.region == "Palo Alto" %}selected{% endif %}>Palo Alto</option>
+                    <option value="New York" {% if request.GET.region == "New York" %}selected{% endif %}>New York</option>
+                    <option value="Manhattan" {% if request.GET.region == "Manhattan" %}selected{% endif %}>Manhattan</option>
+                    <option value="Ontario" {% if request.GET.region == "Ontario" %}selected{% endif %}>Ontario</option>
+                    <option value="Toronto" {% if request.GET.region == "Toronto" %}selected{% endif %}>Toronto</option>
+                    <option value="Kansas" {% if request.GET.region == "Kansas" %}selected{% endif %}>Kansas</option>
+                    <option value="Mountain View" {% if request.GET.region == "Mountain View" %}selected{% endif %}>Mountain View</option>
+                      <!-- <option>Anywhere</option>
                       <option>San Francisco</option>
                       <option>Palo Alto</option>
                       <option>New York</option>
@@ -87,7 +97,7 @@
                       <option>Ontario</option>
                       <option>Toronto</option>
                       <option>Kansas</option>
-                      <option>Mountain View</option>
+                      <option>Mountain View</option> -->
                     </select>
                   </div>
                   <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
@@ -122,6 +132,11 @@
                   </div>
                 </div>
               </form>
+              <ul>
+                {% for company in companies %}
+                    <li>{{ company.company_name }} - {{ company.location }} - {{ company.description }}</li>
+                {% endfor %}
+            </ul>
             </div>
           </div>
         </div>

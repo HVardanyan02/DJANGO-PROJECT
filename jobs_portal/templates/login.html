@@ -13,14 +13,13 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <!-- HOME -->
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('/static/website/images/hero_1.jpg');" id="home-section">
       <div class="container">
         <div class="row">
           <div class="col-md-7">
             <h1 class="text-white font-weight-bold">Sign Up/Login</h1>
             <div class="custom-breadcrumbs">
-              <a href="#">Home</a> <span class="mx-2 slash">/</span>
+              <a href="{% url 'index' %}">Home</a> <span class="mx-2 slash">/</span>
               <span class="text-white"><strong>Log In</strong></span>
             </div>
           </div>
@@ -33,9 +32,35 @@
         <div class="row">
           <div class="col-lg-6 mb-5">
             <h2 class="mb-4">Sign Up To JobBoard</h2>
-            <form action="#" class="p-4 border rounded">
-              <!-- <form action="{% url 'login' %}" method="POST" class="p-4 border rounded"> -->
-                <!-- {% csrf_token %} -->
+            <form action="{% url 'login' %}" method="POST" class="p-4 border rounded">
+              {% csrf_token %}
+              <div class="row form-group">
+                  <div class="col-md-12 mb-3 mb-md-0">
+                      <label class="text-black" for="username">Email</label>
+                      <input type="text" id="email" name="username" class="form-control" placeholder="Email address">
+                  </div>
+              </div>
+              <div class="row form-group mb-4">
+                  <div class="col-md-12 mb-3 mb-md-0">
+                      <label class="text-black" for="password">Password</label>
+                      <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                  </div>
+              </div>
+              <div class="row form-group mb-4">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="fname">Re-Type Password</label>
+                  <input type="password" id="re-password" class="form-control" placeholder="Re-type Password">
+                </div>
+              </div>
+              <div class="row form-group">
+                  <div class="col-md-12">
+                      <input type="submit" value="Log In" class="btn px-4 btn-primary text-white">
+                  </div>
+              </div>
+          </form>
+          
+              <!-- <form action="{% url 'login' %}" method="POST" class="p-4 border rounded">
+                {% csrf_token %}
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -61,25 +86,28 @@
                   <input type="submit" value="Sign Up" class="btn px-4 btn-primary text-white">
                 </div>
               </div>
-            </form>
+            </form> -->
           </div>
-          <!-- {% csrf_token %}  -->
+
           <div class="col-lg-6">
             <h2 class="mb-4">Log In To JobBoard</h2>
-      
-            <form action="#" class="p-4 border rounded">
-              <!-- <form action="{% url 'login' %}" method="POST" class="p-4 border rounded"> -->
-                <!-- {% csrf_token %} -->
+            {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+              <form action="{% url 'login' %}" method="POST" class="p-4 border rounded"> 
+                {% csrf_token %}
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="fname">Email</label>
-                  <input type="text" id="fname"  class="form-control" placeholder="Email address">
+                  <label class="text-black" for="username">Email</label>
+                  <input type="text" id="lemail"  class="form-control" placeholder="Email address">
                 </div>
               </div>
               <div class="row form-group mb-4">
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="fname">Password</label>
-                  <input type="password" id="fname" class="form-control" placeholder="Password">
+                  <label class="text-black" for="password">Password</label>
+                  <input type="password" id="lpassword" class="form-control" placeholder="Password">
                 </div>
               </div>
               <div class="row form-group">

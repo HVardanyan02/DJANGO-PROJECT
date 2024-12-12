@@ -17,23 +17,31 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from job import views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name = 'index'),
-    path('about.html', views.about, name = 'about'),
-    path('contact.html', views.contact, name = 'contact'),
-    path('job-single.html', views.jobSingle, name = 'job-single'),
-    path('post-job.html', views.postJob, name = 'post-job'),
-    path('blog.html', views.blog, name = 'blog'),
-    path('login.html/', views.login, name = 'login'),
-    # path('login.html/', views.user_login, name = 'login'),
-    path('blog-single.html', views.blogSingle, name = 'blog-single'),
-    path('services.html', views.services, name = 'services'),
-    path('service-single.html', views.serviceSingle, name = 'service-single'),
-    path('gallery.html', views.gallery, name = 'gallery'),
-    path('faq.html', views.faq, name = 'faq'),
-    path('testimonials.html', views.testimonials, name = 'testimonials'),
-    path('portfolio.html', views.portfolio, name = 'portfolio'),
-    path('portfolio-single.html', views.portfolioSingle, name = 'portfolio-single'),
+    path('', views.index, name='index'),
+    path('login/', views.loginUser, name='login'),
+    path('login/', views.signUp, name='login'),
 ]
+
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', views.index, name = 'index'),
+#     path('login/', views.loginUser, name='login'),
+    # path('about.html', views.about, name = 'about'),
+    # path('contact.html', views.contact, name = 'contact'),
+    # path('job-single.html', views.jobSingle, name = 'job-single'),
+    # path('post-job.html', views.postJob, name = 'post-job'),
+    # path('blog.html', views.blog, name = 'blog'),
+    # path('login.html/', views.login, name = 'login'),
+    
+    # path('blog-single.html', views.blogSingle, name = 'blog-single'),
+    # path('services.html', views.services, name = 'services'),
+    # path('service-single.html', views.serviceSingle, name = 'service-single'),
+    # path('gallery.html', views.gallery, name = 'gallery'),
+    # path('faq.html', views.faq, name = 'faq'),
+    # path('testimonials.html', views.testimonials, name = 'testimonials'),
+    # path('portfolio.html', views.portfolio, name = 'portfolio'),
+    # path('portfolio-single.html', views.portfolioSingle, name = 'portfolio-single'),
+# ]

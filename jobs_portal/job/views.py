@@ -1,61 +1,46 @@
 from django.shortcuts import render, redirect
-# from django.template.loader import render_to_string
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from job.forms import JobForm
 from django.contrib.auth.models import User
-from .models import *
-from .forms import JobForm
+
 
 def index(request): 
-    return render(request,'index.html',{})
+    return render(request, 'index.html')
 
-
-# def user_login(request):
-#     if request.user.is_authenticated:
-#         return redirect('index')
-#     else:
-#         if request.method == "POST":
-#             email = request.POST.get('email')
-#             password = request.POST.get('password')
-            
-#             if not User.objects.filter(username=email).exists():
-#                 messages.error(request, 'Invalid email')
-#                 return redirect('login')
-            
-#             user = authenticate(username=email, password=password)
-            
-#             if user is None:
-#                 messages.error(request, "Invalid Password")
-#                 return redirect('login')
-#             else:
-#                 login(request, user)
-#                 return redirect('index')
+def loginUser(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        if username and password:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'You have successfully logged in.')
+                return redirect('index')
+            else:
+                messages.error(request, 'Invalid username or password. Please try again.')
+        else:
+            messages.error(request, 'Both fields are required.')
     
-#     return render(request, 'login.html')
+    return render(request, 'login.html')
 
 def signUp(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        re_type_password = request.POST.get('re_type_password')
-        
+    if request.method=="POST": 
+        username = request.POST['email']
+        password = request.POST['password']
+        re_type_password = request.POST['re_type_password']
+ 
         if password != re_type_password:
-            messages.error(request, "Passwords do not match")
-            return redirect('login')
+            messages.error(request, "Passwords do not match.")
+            return redirect('/login')
         
-        if User.objects.filter(username=email).exists():
-            messages.error(request, "Email already registered")
-            return redirect('login')
-        
-        user = User.objects.create_user(username=email, password=password)
+        user = User.objects.create_user(username=username, password=password)
         user.save()
-        
-        login(request, user)
-        messages.success(request, "Registration successful")
-        return redirect('index')
-    
-    return render(request, 'login.html', {})
+        return render(request, "index.html")
+    return render(request, "login.html")
 
 def about(request): 
     return render(request,'about.html',{})
@@ -114,17 +99,17 @@ def portfolioSingle(request):
 
 #     return render(request, 'job-single.html', {'companies': companies})
 
-def create_job_view(request):
-    if request.method == 'POST':
-        form = JobForm(request.POST, request.FILES)  # Add request.FILES to handle file uploads
-        if form.is_valid():
-            form.save()
-            print("Job successfully created.")
-            return redirect('job-single')
-        else:
-            print(form.errors) 
-    else:
-        form = JobForm()
-    return render(request, 'post-job.html', {'form': form})
+# def create_job_view(request):
+#     if request.method == 'POST':
+#         form = JobForm(request.POST, request.FILES)  # Add request.FILES to handle file uploads
+#         if form.is_valid():
+#             form.save()
+#             print("Job successfully created.")
+#             return redirect('job-single')
+#         else:
+#             print(form.errors) 
+#     else:
+#         form = JobForm()
+#     return render(request, 'post-job.html', {'form': form})
 
 

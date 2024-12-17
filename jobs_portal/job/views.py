@@ -5,42 +5,33 @@ from django.contrib.auth.decorators import login_required
 from job.forms import JobForm
 from django.contrib.auth.models import User
 
+def index(request):
+    return render(request, 'index.html', {})
 
-def index(request): 
-    return render(request, 'index.html')
+@login_required
+def profile_view(request):
+    return render(request, 'profile.html', {'user': request.user})
 
-def loginUser(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
+def signup_login_view(request, *args, **kwargs):
+    """Handles user sign up and log in in one view."""
+    if request.user.is_authenticated:
+        return redirect('index')
+
+    if request.method == 'POST':
+        email = request.POST.get('username')
         password = request.POST.get('password')
-        
-        if username and password:
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, 'You have successfully logged in.')
-                return redirect('index')
-            else:
-                messages.error(request, 'Invalid username or password. Please try again.')
+
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Login successful!")
+            return redirect('index')
         else:
-            messages.error(request, 'Both fields are required.')
-    
+            messages.error(request, "Invalid email or password.")
+            return redirect('login')
+
     return render(request, 'login.html')
 
-def signUp(request):
-    if request.method=="POST": 
-        username = request.POST['email']
-        password = request.POST['password']
-        re_type_password = request.POST['re_type_password']
- 
-        if password != re_type_password:
-            messages.error(request, "Passwords do not match.")
-            return redirect('/login')
-        
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        return render(request, "index.html")
-    return render(request, "login.html")
 
 def about(request): 
     return render(request,'about.html',{})
@@ -57,8 +48,8 @@ def postJob(request):
 def blog(request): 
     return render(request,'blog.html',{})
 
-def login(request): 
-    return render(request,'login.html',{})
+# def login(request, user): 
+#     return render(request,'login.html',{})
 
 def blogSingle(request): 
     return render(request,'blog-single.html',{})
@@ -113,3 +104,24 @@ def portfolioSingle(request):
 #     return render(request, 'post-job.html', {'form': form})
 
 
+# Sign Up
+        # if 'sign_up' in request.POST:  # Check which form was submitted
+        #     email = request.POST.get('email')
+        #     password = request.POST.get('password')
+        #     re_password = request.POST.get('re-password')
+            
+            # if password != re_password:
+            #     messages.error(request, "Passwords do not match.")
+            #     return redirect('signup_login')  # Redirect to the same page
+
+            # if User.objects.filter(username=email).exists():
+            #     messages.error(request, "User with this email already exists.")
+            #     return redirect('signup_login')
+
+            # try:
+            #     user = User.objects.create_user(username=email, password=password)
+            #     messages.success(request, "Account successfully created! You can now log in.")
+            #     return redirect('signup_login')
+            # except Exception as e:
+            #     messages.error(request, "An error occurred while creating the account.")
+            #     return redirect('signup_login')

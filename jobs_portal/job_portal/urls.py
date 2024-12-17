@@ -17,31 +17,37 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from job import views
+from django.contrib.auth.views import LogoutView
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('login/', views.loginUser, name='login'),
-    path('login/', views.signUp, name='login'),
+    path('login/', views.signup_login_view, name='login'),
+    path('profile/', views.profile_view, name='profile'),
+    path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
 ]
 
 
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
-#     path('', views.index, name = 'index'),
-#     path('login/', views.loginUser, name='login'),
-    # path('about.html', views.about, name = 'about'),
-    # path('contact.html', views.contact, name = 'contact'),
-    # path('job-single.html', views.jobSingle, name = 'job-single'),
-    # path('post-job.html', views.postJob, name = 'post-job'),
-    # path('blog.html', views.blog, name = 'blog'),
-    # path('login.html/', views.login, name = 'login'),
-    
-    # path('blog-single.html', views.blogSingle, name = 'blog-single'),
-    # path('services.html', views.services, name = 'services'),
-    # path('service-single.html', views.serviceSingle, name = 'service-single'),
-    # path('gallery.html', views.gallery, name = 'gallery'),
-    # path('faq.html', views.faq, name = 'faq'),
-    # path('testimonials.html', views.testimonials, name = 'testimonials'),
-    # path('portfolio.html', views.portfolio, name = 'portfolio'),
-    # path('portfolio-single.html', views.portfolioSingle, name = 'portfolio-single'),
+#     path('', views.index, name='index'),
+#     path('login/', views.signup_login_view, name='login'),
+#     path('profile/', views.profile_view, name='profile'),
+#     path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
+
+#     path('about.html', views.about, name = 'about'),
+#     path('contact.html', views.contact, name = 'contact'),
+#     path('job-single.html', views.jobSingle, name = 'job-single'),
+#     path('post-job.html', views.postJob, name = 'post-job'),
+#     path('blog.html', views.blog, name = 'blog'),
+#     path('blog-single.html', views.blogSingle, name = 'blog-single'),
+#     path('services.html', views.services, name = 'services'),
+#     path('service-single.html', views.serviceSingle, name = 'service-single'),
+#     path('gallery.html', views.gallery, name = 'gallery'),
+#     path('faq.html', views.faq, name = 'faq'),
+#     path('testimonials.html', views.testimonials, name = 'testimonials'),
+#     path('portfolio.html', views.portfolio, name = 'portfolio'),
+#     path('portfolio-single.html', views.portfolioSingle, name = 'portfolio-single'),
 # ]

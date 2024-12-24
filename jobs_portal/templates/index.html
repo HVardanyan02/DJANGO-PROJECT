@@ -201,7 +201,7 @@
         </div>
       </section>
 
-      <section class="site-section">
+      <!-- <section class="site-section">
         <div class="container">
           <div class="row mb-5 justify-content-center">
             <div class="col-md-7 text-center">
@@ -450,7 +450,50 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
+      <!-- <ul>
+        {% for company in companies %}
+        <h1>job listed</h1>
+            <li>{{ company.company_name }} - {{ company.location }} - {{ company.description }}</li>
+        {% empty %}
+            <li>No companies found.</li>
+        {% endfor %}
+    </ul>
+    
+    <ul class="job-listings mb-5">
+        {% for job in jobs %}
+            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                <a href="job-single.html"></a>
+                <div class="job-listing-logo">
+                    <img src="{{ job.company.logo.url }}" alt="{{ job.company.company_name }}" class="img-fluid" />
+                </div>
+                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                        <h2>{{ job.job_title }}</h2>
+                        <strong>{{ job.company.company_name }}</strong>
+                    </div>
+                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                        <span class="icon-room"></span> {{ job.company.location }}
+                    </div>
+                    <div class="job-listing-meta">
+                        <span class="badge badge-danger">{{ job.job_type.job_name }}</span>
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <p>No jobs available.</p>
+        {% endfor %}
+    </ul> -->
+    <form action="job" method="GET">
+      <button type="submit" class="btn btn-primary">
+        <span class="icon-search icon mr-2"></span>Job Listed
+      </button>
+    </form>
+    
+    <!-- {%include "job-listed-index.html" %} -->
+    
+      
+    
 
       <section
         class="py-5 bg-image overlay-primary fixed overlay"

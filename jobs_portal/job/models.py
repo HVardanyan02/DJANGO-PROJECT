@@ -11,8 +11,11 @@ class Company(models.Model):
     location = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     company_website_url = models.URLField(blank=True, null=True)
-    logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    # logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     contacts = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.company_name 
 
 class Seeker(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -32,13 +35,22 @@ class Experience(models.Model):
     description = models.TextField(blank=True, null=True)
 
 class Job(models.Model):
+    job_title = models.CharField(max_length=255, default="Unknown")
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     job_type = models.ForeignKey('JobType', on_delete=models.SET_NULL, blank=True, null=True)
     created_by_user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     job_description = models.TextField()
+    # logo = models.ImageField(upload_to='job_logos/')
 
+    def __str__(self):
+        return f"{self.job_title} | {self.company} | {self.job_type}"
+
+    
 class JobType(models.Model):
     job_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.job_name 
 
 class SeekerJob(models.Model):
     seeker = models.ForeignKey(Seeker, on_delete=models.CASCADE)

@@ -4,16 +4,43 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from job.forms import JobForm
 from django.contrib.auth.models import User
+from job.models import Job,Company
 
 def index(request):
     return render(request, 'index.html', {})
+
+# def job_list(request):
+#     jobs = Job.objects.all()
+#     print(":::::::::::::::::::::::::",jobs)
+#     return render(request, 'index.html', {'jobs': jobs})
+
+
+def job_board(request):
+    companies = Company.objects.all()
+    jobs = Job.objects.all()
+
+    company_count = companies.count()
+    job_count = jobs.count()
+
+    print("Companies Count:", company_count)
+    print("Jobs Count:", job_count)
+    print("Companies:", companies)
+    print("Jobs:", jobs)
+
+    return render(request, 'job-listed-index.html', {
+        'companies': companies,
+        'jobs': jobs,
+        'company_count': company_count,
+        'job_count': job_count,
+    })
+
+
 
 @login_required
 def profile_view(request):
     return render(request, 'profile.html', {'user': request.user})
 
 def signup_login_view(request, *args, **kwargs):
-    """Handles user sign up and log in in one view."""
     if request.user.is_authenticated:
         return redirect('index')
 
@@ -32,6 +59,36 @@ def signup_login_view(request, *args, **kwargs):
 
     return render(request, 'login.html')
 
+# Sign Up
+def signup_view(request):
+    if request.method == "POST":
+        email = request.POST.get('email') 
+        password = request.POST.get('password')
+        re_password = request.POST.get('re-password')
+
+
+        # if not email or not password or not re_password:
+        #     messages.error(request, "All fields are required.")
+        #     return redirect('signup')
+
+        if password != re_password:
+            messages.error(request, "Passwords do not match.")
+            return redirect('signup')
+
+        if User.objects.filter(username=email).exists():
+            messages.error(request, "A user with this email already exists.")
+            return redirect('signup')
+
+        try:
+            user = User.objects.create_user(username=email, password=password)
+            user.save()
+            messages.success(request, "Account created successfully. You can now log in.")
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('signup')
+
+    return render(request, "login.html")
 
 def about(request): 
     return render(request,'about.html',{})
@@ -103,25 +160,3 @@ def portfolioSingle(request):
 #         form = JobForm()
 #     return render(request, 'post-job.html', {'form': form})
 
-
-# Sign Up
-        # if 'sign_up' in request.POST:  # Check which form was submitted
-        #     email = request.POST.get('email')
-        #     password = request.POST.get('password')
-        #     re_password = request.POST.get('re-password')
-            
-            # if password != re_password:
-            #     messages.error(request, "Passwords do not match.")
-            #     return redirect('signup_login')  # Redirect to the same page
-
-            # if User.objects.filter(username=email).exists():
-            #     messages.error(request, "User with this email already exists.")
-            #     return redirect('signup_login')
-
-            # try:
-            #     user = User.objects.create_user(username=email, password=password)
-            #     messages.success(request, "Account successfully created! You can now log in.")
-            #     return redirect('signup_login')
-            # except Exception as e:
-            #     messages.error(request, "An error occurred while creating the account.")
-            #     return redirect('signup_login')

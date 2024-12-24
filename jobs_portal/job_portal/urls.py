@@ -25,27 +25,23 @@ urlpatterns = [
     path('login/', views.signup_login_view, name='login'),
     path('profile/', views.profile_view, name='profile'),
     path('logout/', auth_views.LogoutView.as_view(next_page = 'index'), name='logout'),
+    path('signup/', views.signup_view, name='signup'),
+    path('job/', views.job_board, name='job'),
+
+
+    path('about.html', views.about, name = 'about'),
+    path('contact.html', views.contact, name = 'contact'),
+    path('job-single.html', views.jobSingle, name = 'job-single'),
+    path('post-job.html', views.postJob, name = 'post-job'),
+    path('blog.html', views.blog, name = 'blog'),
+    path('blog-single.html', views.blogSingle, name = 'blog-single'),
+    path('services.html', views.services, name = 'services'),
+    path('service-single.html', views.serviceSingle, name = 'service-single'),
+    path('gallery.html', views.gallery, name = 'gallery'),
+    path('faq.html', views.faq, name = 'faq'),
+    path('testimonials.html', views.testimonials, name = 'testimonials'),
+    path('portfolio.html', views.portfolio, name = 'portfolio'),
+    path('portfolio-single.html', views.portfolioSingle, name = 'portfolio-single'),
 ]
 
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('', views.index, name='index'),
-#     path('login/', views.signup_login_view, name='login'),
-#     path('profile/', views.profile_view, name='profile'),
-#     path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
-
-#     path('about.html', views.about, name = 'about'),
-#     path('contact.html', views.contact, name = 'contact'),
-#     path('job-single.html', views.jobSingle, name = 'job-single'),
-#     path('post-job.html', views.postJob, name = 'post-job'),
-#     path('blog.html', views.blog, name = 'blog'),
-#     path('blog-single.html', views.blogSingle, name = 'blog-single'),
-#     path('services.html', views.services, name = 'services'),
-#     path('service-single.html', views.serviceSingle, name = 'service-single'),
-#     path('gallery.html', views.gallery, name = 'gallery'),
-#     path('faq.html', views.faq, name = 'faq'),
-#     path('testimonials.html', views.testimonials, name = 'testimonials'),
-#     path('portfolio.html', views.portfolio, name = 'portfolio'),
-#     path('portfolio-single.html', views.portfolioSingle, name = 'portfolio-single'),
-# ]

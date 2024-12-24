@@ -1,6 +1,100 @@
 <header class="site-navbar mt-3">
   <div class="container-fluid">
     <div class="row align-items-center">
+      <!-- Site Logo -->
+      <div class="site-logo col-6">
+        <a href="{% url 'index' %}">JobBoard</a>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="mx-auto site-navigation">
+        <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+          <li><a href="{% url 'index' %}" class="nav-link active">Home</a></li>
+          <li><a href="about.html">About</a></li>
+
+          <li class="has-children">
+            <a href="job_listings.html">Job Listings</a>
+            <ul class="dropdown">
+              <li><a href="job_single.html">Job Single</a></li>
+              <li><a href="post_job.html">Post a Job</a></li>
+            </ul>
+          </li>
+
+          <li class="has-children">
+            <a href="services.html">Pages</a>
+            <ul class="dropdown">
+              <li><a href="services.html">Services</a></li>
+              <li><a href="service_single.html">Service Single</a></li>
+              <li><a href="blog_single.html">Blog Single</a></li>
+              <li><a href="portfolio.html">Portfolio</a></li>
+              <li><a href="portfolio_single.html">Portfolio Single</a></li>
+              <li><a href="testimonials.html">Testimonials</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+          </li>
+
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+
+          {% if user.is_authenticated %}
+            <li class="has-children">
+              <a href="#"><i class="icon-user"></i> Profile</a>
+              <ul class="dropdown">
+                <li><a href="{% url 'profile' %}">My Profile</a></li>
+                <li>
+                  <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link p-0" style="color: inherit; text-decoration: none;">
+                      Logout
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="d-lg-none"><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <div class="right-cta-menu text-right d-flex align-items-center col-6">
+        <div class="ml-auto">
+          {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block">
+              <span class="mr-2 icon-user"></span>Profile
+            </a>
+            <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                <span class="mr-2 icon-lock_outline"></span>Log Out
+              </button>
+            </form>
+          {% else %}
+            <a href="post_job.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block">
+              <span class="mr-2 icon-add"></span>Post a Job
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+              <span class="mr-2 icon-lock_outline"></span>Log In
+            </a>
+          {% endif %}
+        </div>
+
+        <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3">
+          <span class="icon-menu h3 m-0 p-0 mt-2"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+<!-- correct version -->
+<!-- <header class="site-navbar mt-3">
+  <div class="container-fluid">
+    <div class="row align-items-center">
       <div class="site-logo col-6"><a href="{% url 'index' %}">JobBoard</a></div>
 
       <nav class="mx-auto site-navigation">
@@ -20,6 +114,7 @@
                     </button>
                   </form>
                 </li>
+                
               </ul>
             </li>
           {% else %}
@@ -49,4 +144,4 @@
       </div>
     </div>
   </div>
-</header>
+</header> -->

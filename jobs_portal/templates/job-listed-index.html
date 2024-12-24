@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading styles */
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Job & Company List */
+        .list-group {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .list-group-item {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .list-group-item:hover {
+            background-color: #bdc3c7;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .page-item {
+            margin: 0 5px;
+        }
+
+        .page-link {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .page-link:hover {
+            background-color: #a4f29d;
+        }
+
+        .page-item.disabled .page-link {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .current {
+            padding: 10px 15px;
+            font-weight: bold;
+            background-color: #f1c40f;
+            border-radius: 5px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Job Listings</h1>
+
+        <!-- Companies Section -->
+        <section>
+            <h2>Companies ({{ company_count }})</h2>
+            <ul class="list-group">
+                {% for company in companies %}
+                    <li class="list-group-item">{{ company.company_name }} - {{ company.location }}</li>
+                {% empty %}
+                    <li class="list-group-item">No companies found.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Jobs Section -->
+        <section class="mt-5">
+            <h2>Jobs ({{ job_count }})</h2>
+            <ul class="list-group">
+                {% for job in jobs %}
+                    <li class="list-group-item">
+                        <strong>{{ job.job_title }}</strong> at {{ job.company.company_name }}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No jobs available.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Pagination -->
+        <div class="mt-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if jobs.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">&laquo; First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ jobs.previous_page_number }}" aria-label="Previous">Previous</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item disabled">
+                        <span class="page-link current">Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}</span>
+                    </li>
+                    {% if jobs.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ jobs.next_page_number }}" aria-label="Next">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ jobs.paginator.num_pages }}" aria-label="Last">Last &raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
